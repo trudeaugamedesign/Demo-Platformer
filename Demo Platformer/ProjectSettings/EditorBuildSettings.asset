@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Title Screen.unity
     guid: 5db0233cc21d7e606b5527ed7d89be88
   - enabled: 1
+    path: Assets/Scenes/Level Select.unity
+    guid: 6265bab0331427ccf909d213e1201958
+  - enabled: 1
     path: Assets/Scenes/Level -1.unity
     guid: 09bef9cd50e606d41ac90ec1fdd96cf5
   - enabled: 1
