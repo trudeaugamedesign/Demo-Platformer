@@ -12,7 +12,17 @@ public class EnableJumping : MonoBehaviour
         // some other object.
         if (player)
         {
-            player.canJump = true;
+            player.isGrounded = true;
         }
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+	PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
+
+	if (player)
+	{
+	    player.isGrounded = false;
+	}
     }
 }

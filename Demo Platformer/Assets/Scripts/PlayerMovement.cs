@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpSpeed;
     public float velocityToFall; // The y velocity in which to play fall animation
 
-    [HideInInspector] public bool canJump = false;
+    [HideInInspector] public bool isGrounded;
     private Rigidbody2D playerRb;
     private Animator anim;
     private SpriteRenderer sr;
@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Check if able to jump
         float inputJump = Input.GetAxis("Jump");
-        if (canJump && inputJump > 0.0f)
+        if (isGrounded && inputJump > 0.0f)
         {
             StartCoroutine("Jump");
 	    anim.SetTrigger("Is Jumping");
@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator Jump()
     {
         playerRb.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
-        canJump = false;
+        isGrounded = false;
         yield return null;
     }
 }
