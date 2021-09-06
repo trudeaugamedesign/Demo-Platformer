@@ -9,10 +9,14 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector] public bool canJump = false;
     private Rigidbody2D playerRb;
+    private Animator anim;
+    private SpriteRenderer sr;
 
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
+	anim = GetComponent<Animator>();
+	sr = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -27,6 +31,26 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine("Jump");
         }
+
+	// Animate movement
+	if (inputX != 0.0f)
+	{
+	    anim.SetBool("Is Running", true);
+	}
+	else
+	{
+	    anim.SetBool("Is Running", false);
+	}
+
+	// Make sure the player is facing the right direction
+	if (inputX > 0.0f)
+	{
+	    sr.flipX = false;
+	}
+	else if (inputX < 0.0f)	// Needed to make explicit since player should not have a default position to face
+	{
+	    sr.flipX = true;
+	}
     }
 
     IEnumerator Jump()
