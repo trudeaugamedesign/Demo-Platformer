@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         // For player movement
-        float inputX = Input.GetAxis("Horizontal");
+        float inputX = Input.GetAxisRaw("Horizontal");
         playerRb.velocity = new Vector2 (inputX * movementSpeed, playerRb.velocity.y);
 
         // Check if able to jump
