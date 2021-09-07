@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public float velocityToFall; // The y velocity in which to play fall animation
 
     [HideInInspector] public bool isGrounded;
+    [HideInInspector] public bool hasDoubleJumped;
+    private bool inputJump;
+    
     private Rigidbody2D playerRb;
     private Animator anim;
     private SpriteRenderer sr;
@@ -18,6 +21,25 @@ public class PlayerMovement : MonoBehaviour
         playerRb = GetComponent<Rigidbody2D>();
 	anim = GetComponent<Animator>();
 	sr = GetComponent<SpriteRenderer>();
+
+	hasDoubleJumped = false;
+	inputJump = false;
+    }
+
+    void Update()
+    {
+	// Check if able to jump
+	if (Input.GetButtonDown("Jump"))
+	{
+	    /*
+	     * Due to the way Unity handles Update() and FixedUpdate(), whether
+	     * the player can jump has to be handled at all frames, where as
+	     * if the player shouldn't jump, then inputJump is set to false
+	     * in FixedUpdate(). Setting a conditional statement to set it
+	     * as off would not sync the input hande with the actual jumping.
+	     */
+	    inputJump = true;
+	}
     }
 
     void FixedUpdate()
@@ -26,13 +48,20 @@ public class PlayerMovement : MonoBehaviour
         float inputX = Input.GetAxisRaw("Horizontal");
         playerRb.velocity = new Vector2 (inputX * movementSpeed, playerRb.velocity.y);
 
-        // Check if able to jump
-        float inputJump = Input.GetAxis("Jump");
-        if (isGrounded && inputJump > 0.0f)
+	// For player jumping
+        if (isGrounded && inputJump)
         {
             StartCoroutine("Jump");
 	    anim.SetTrigger("Is Jumping");
+	    inputJump = false;
         }
+	else if (!hasDoubleJumped && inputJump) // For Double Jumping
+	{
+	    StartCoroutine("Jump");
+	    anim.SetTrigger("Is Double Jumping");
+	    hasDoubleJumped = true;
+	    inputJump = false;
+	}
 
 	// Make sure the player is facing the right direction
 	if (inputX > 0.0f)

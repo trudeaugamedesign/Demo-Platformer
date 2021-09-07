@@ -13,6 +13,7 @@ public class EnableJumping : MonoBehaviour
         if (player)
         {
             player.isGrounded = true;
+	    player.hasDoubleJumped = false;
         }
     }
 
