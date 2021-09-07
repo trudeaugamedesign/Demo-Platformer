@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         }
 	else if (!hasDoubleJumped && inputJump) // For Double Jumping
 	{
+	    playerRb.velocity = new Vector2 (playerRb.velocity.x, 0); // Reset y velocity for double jump
 	    StartCoroutine("Jump");
 	    anim.SetTrigger("Is Double Jumping");
 	    hasDoubleJumped = true;
