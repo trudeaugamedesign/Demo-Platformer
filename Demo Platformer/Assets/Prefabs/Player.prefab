@@ -147,8 +147,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 7
   jumpSpeed: 16
+  wallJumpSpeed: 50
+  wallVelocity: -2
   velocityToFall: -0.4
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 128
   isGrounded: 0
+  onWall: 0
+  hasDoubleJumped: 0
 --- !u!95 &4614836712239995492
 Animator:
   serializedVersion: 3

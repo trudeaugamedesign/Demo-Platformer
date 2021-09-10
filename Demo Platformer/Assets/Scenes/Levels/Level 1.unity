@@ -182,7 +182,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -283,16 +283,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 663836532577500948, guid: 6b0756e0a9b54a44595771963d8d43e0, type: 3}
-      propertyPath: mask.m_Bits
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 663836532577500948, guid: 6b0756e0a9b54a44595771963d8d43e0, type: 3}
-      propertyPath: wallJumpSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 663836532577500948, guid: 6b0756e0a9b54a44595771963d8d43e0, type: 3}
-      propertyPath: groundMask.m_Bits
-      value: 128
+      propertyPath: wallVelocity
+      value: -2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b0756e0a9b54a44595771963d8d43e0, type: 3}

@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed;
     public float jumpSpeed;
     public float wallJumpSpeed;
+    public float wallVelocity;
     public float velocityToFall; // The y velocity in which to play fall animation
     public LayerMask groundMask;
 
@@ -62,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
 	if (hitWall)
 	{
 	    onWall = true;
+	    playerRb.velocity = new Vector2(playerRb.velocity.x, wallVelocity);
 	    anim.SetBool("Is On Wall", true);
 	}
         else
