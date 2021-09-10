@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed;
     public float jumpSpeed;
     public float velocityToFall; // The y velocity in which to play fall animation
+    public LayerMask mask;
 
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool hasDoubleJumped;
@@ -44,6 +45,15 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+
+	// Raycast
+	RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, 1.0f, mask);
+	if (hit.collider != null)
+	{
+	    isGrounded = true;
+	    hasDoubleJumped = false;
+	}
+	
         // For player movement
         float inputX = Input.GetAxisRaw("Horizontal");
         playerRb.velocity = new Vector2 (inputX * movementSpeed, playerRb.velocity.y);
