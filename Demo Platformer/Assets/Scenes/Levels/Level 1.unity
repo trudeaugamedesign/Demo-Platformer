@@ -283,8 +283,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 663836532577500948, guid: 6b0756e0a9b54a44595771963d8d43e0, type: 3}
+      propertyPath: wallJumpTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 663836532577500948, guid: 6b0756e0a9b54a44595771963d8d43e0, type: 3}
       propertyPath: wallVelocity
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 663836532577500948, guid: 6b0756e0a9b54a44595771963d8d43e0, type: 3}
+      propertyPath: wallSlideSpeed
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 663836532577500948, guid: 6b0756e0a9b54a44595771963d8d43e0, type: 3}
+      propertyPath: wallJumpSpeed.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 663836532577500948, guid: 6b0756e0a9b54a44595771963d8d43e0, type: 3}
+      propertyPath: wallJumpSpeed.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 663836532577500948, guid: 6b0756e0a9b54a44595771963d8d43e0, type: 3}
+      propertyPath: wallDetectDistance
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b0756e0a9b54a44595771963d8d43e0, type: 3}
