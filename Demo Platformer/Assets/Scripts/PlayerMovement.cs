@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool onWall;
     [HideInInspector] public bool hasDoubleJumped;
-    [HideInInspector] public bool canHoldWall;
+    [HideInInspector] public bool canHoldWall = true;
     private bool inputJump;
 
     private Rigidbody2D playerRb;
@@ -69,18 +69,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Check if player is hitting wall (For walljumping)
-        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, new Vector2(transform.position.x, 0), 1.0f, groundMask);
-        if (hitWall)
-        {
-            onWall = true;
-            playerRb.velocity = new Vector2(playerRb.velocity.x, wallSlideSpeed);
-            anim.SetBool("Is On Wall", true);
-        }
-        else
-        {
-            onWall = false;
-            anim.SetBool("Is On Wall", false);
-        }
+        // RaycastHit2D hitWall = Physics2D.Raycast(transform.position, new Vector2(transform.position.x, 0), wallDetectDistance, groundMask);
+        // if (hitWall)
+        // {
+        //     onWall = !isGrounded && playerRb.velocity.y < 0; // Only set to true if not on ground and falling
+        //     playerRb.velocity = new Vector2(playerRb.velocity.x, wallSlideSpeed);
+        // }
+        // else
+        // {
+        //     onWall = false;
+        // }
 
         // For player movement
         float inputX = Input.GetAxisRaw("Horizontal");
@@ -122,45 +120,29 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Animate movement
-        if (inputX != 0.0f)
-        {
-            anim.SetBool("Is Running", true);
-        }
-        else
-        {
-            anim.SetBool("Is Running", false);
-        }
+        anim.SetBool("Is Running", inputX != 0.0f);
 
         // Check if player is falling
-        if (playerRb.velocity.y < velocityToFall)
-        {
-            anim.SetBool("Is Falling", true);
-        }
-        else
-        {
-            anim.SetBool("Is Falling", false);
-        }
+        anim.SetBool("Is Falling", !isGrounded);
 
         Jumping();
         WallMovement();
+
+        inputJump = false;
     }
     void WallMovement()
     {
 
         // Raycast for walls on either side of player
-        RaycastHit2D lwall = Physics2D.Raycast(bc.bounds.center, Vector2.left, bc.bounds.size.x / 2 + wallDetectDistance, groundMask);
         RaycastHit2D rwall = Physics2D.Raycast(bc.bounds.center, Vector2.right, bc.bounds.size.x / 2 + wallDetectDistance, groundMask);
+        RaycastHit2D lwall = Physics2D.Raycast(bc.bounds.center, Vector2.left, bc.bounds.size.x / 2 + wallDetectDistance, groundMask);
 
-        onWall = (lwall || rwall) && !isGrounded && (canHoldWall || onWall); // Record if player is on wall
-        // if ((lwall || rwall) && (canHoldWall || onWall))
-        // {
-        //     onWall = (lwall || rwall) && !isGrounded; // Record if player is on wall
-        // }
+        onWall = (lwall || rwall) && !isGrounded && playerRb.velocity.y < 0; // Record if player is on wall
 
-        if (onWall || isGrounded) wallJumped = false;
+        anim.SetBool("Is On Wall", onWall);
+
         if (onWall)
         {
-            anim.SetBool("Is On Wall", onWall);
             // Check if the player is on the right or left wall, if rwall is false, then that means the player is on the left wall and dir will be -1, else then dir will be 1
             int dir = (System.Convert.ToInt32(rwall) * 2) - 1;
 
@@ -169,6 +151,8 @@ public class PlayerMovement : MonoBehaviour
 
             // Flip player in direction opposite to wall
             sr.flipX = !rwall;
+
+            playerRb.velocity = new Vector2(playerRb.velocity.x, wallSlideSpeed);
 
             // Check for jump key and jump opposite to the wall
             if (inputJump || input.x == -dir)
