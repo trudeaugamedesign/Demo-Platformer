@@ -8,8 +8,8 @@ public class HurtPlayer : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        // Detect if enemy collided with the player (if they have playermovement script)
-        if (col.gameObject.tag == "Player" && !GameManager.playerInvincible)
+        // Detect if enemy collided with the player
+        if (col.gameObject.tag == "Player" && col.gameObject.transform.position.y <= transform.position.y)
         {
             GameManager.playerHit = true;
             Destroy(col.gameObject);

@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour
             playerInvincible = true;
             countdownPlayerInvincibility();
         }
-
-        Debug.Log(playerInvincible);
     }
 
     static IEnumerator countdownPlayerInvincibility()

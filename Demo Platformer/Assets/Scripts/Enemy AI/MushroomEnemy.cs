@@ -22,7 +22,7 @@ public class MushroomEnemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         rb2d.velocity = new Vector2(speed * direction, rb2d.velocity.y);
 
@@ -30,6 +30,7 @@ public class MushroomEnemy : MonoBehaviour
         Vector2 raycastPos = new Vector2(transform.position.x, transform.position.y - 1);
         RaycastHit2D hitRight = Physics2D.Raycast(raycastPos, Vector2.right, distanceBeforeTurning, wall);
         RaycastHit2D hitLeft = Physics2D.Raycast(raycastPos, Vector2.left, distanceBeforeTurning, wall);
+
         if (hitRight && direction == 1)
         {
             direction = -direction;
