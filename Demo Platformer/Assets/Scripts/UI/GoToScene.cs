@@ -7,6 +7,6 @@ public class GoToScene : MonoBehaviour
 {
     public void goToScene(string sceneName)
     {
-        StartCoroutine(GameManager.instance.LoadScene(sceneName));
+        GameManager.instance.StartCoroutine(GameManager.instance.LoadScene(sceneName));
     }
 }

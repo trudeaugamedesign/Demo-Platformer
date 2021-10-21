@@ -12,23 +12,22 @@ public class GameManager : MonoBehaviour
     [Header("Scene Transition")]
     public float sceneTransitionTime;
 
+    [Header("Level Management")]
+    private Vector2 spawnPosition;
+
     void Awake()
     {
         if (instance != null) Destroy(gameObject);
 
         instance = this;
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject); // Set object to do not destroy on load
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void ReloadScene()
     {
@@ -36,16 +35,27 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator LoadScene(string sceneName)
     {
+        Scene lastScene = SceneManager.GetActiveScene(); // Record last scene
+
         // Avoid loading scene multiple times
-        if (loading) yield break;
+        if (loading)
+        {
+            yield break;
+        }
         loading = true;
 
-        SceneTransitionAnimator.SetTrigger("Transition");
-        yield return new WaitForSeconds(sceneTransitionTime);
-        SceneManager.LoadScene(sceneName);
-        SceneTransitionAnimator.SetTrigger("Transition");
-        yield return new WaitForSeconds(sceneTransitionTime);
+        SceneTransitionAnimator.SetTrigger("Transition"); // Transition out
+        yield return new WaitForSeconds(sceneTransitionTime); // Wait for animation time
+        SceneManager.LoadScene(sceneName); // Load scene
+        SceneTransitionAnimator.SetTrigger("Transition"); // Transition in
 
-        loading = false;
+        loading = false; // Re enable scene loading
+
+        // Check conditions are right for respawing the player at a checkpoint
+        if (spawnPosition != Vector2.zero && SceneManager.GetActiveScene() == lastScene)
+        {
+            GameObject.FindGameObjectWithTag("Player").transform.position = spawnPosition;
+        }
+        else spawnPosition = Vector2.zero;
     }
 }
