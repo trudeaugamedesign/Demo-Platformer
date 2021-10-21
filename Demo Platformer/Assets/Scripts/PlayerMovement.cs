@@ -212,4 +212,9 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = false;
         yield return null;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Enemy") GameManager.instance.ReloadScene();
+    }
 }

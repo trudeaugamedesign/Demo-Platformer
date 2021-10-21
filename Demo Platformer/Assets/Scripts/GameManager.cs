@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Animator SceneTransitionAnimator;
+    public bool loading;
 
     [Header("Scene Transition")]
     public float sceneTransitionTime;
@@ -28,12 +29,23 @@ public class GameManager : MonoBehaviour
     {
 
     }
+
+    public void ReloadScene()
+    {
+        LoadScene(SceneManager.GetActiveScene().name);
+    }
     public IEnumerator LoadScene(string sceneName)
     {
+        // Avoid loading scene multiple times
+        if (loading) yield break;
+        loading = true;
+
         SceneTransitionAnimator.SetTrigger("Transition");
         yield return new WaitForSeconds(sceneTransitionTime);
         SceneManager.LoadScene(sceneName);
         SceneTransitionAnimator.SetTrigger("Transition");
         yield return new WaitForSeconds(sceneTransitionTime);
+
+        loading = false;
     }
 }
