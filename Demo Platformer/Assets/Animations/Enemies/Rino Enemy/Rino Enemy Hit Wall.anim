@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mushroom Enemy Hit
+  m_Name: Rino Enemy Hit Wall
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,15 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -7612900313820856468, guid: 9319408bef8536447aa9db6239b623ea, type: 3}
-    - time: 0.083333336
-      value: {fileID: 8733631668352107246, guid: 9319408bef8536447aa9db6239b623ea, type: 3}
-    - time: 0.16666667
-      value: {fileID: -4947864620551752270, guid: 9319408bef8536447aa9db6239b623ea, type: 3}
-    - time: 0.25
-      value: {fileID: -5364657433725072944, guid: 9319408bef8536447aa9db6239b623ea, type: 3}
+      value: {fileID: -1047649535969266603, guid: 15480e865b4f2aeca9091973156d7842, type: 3}
+    - time: 0.11666667
+      value: {fileID: -4242890834327137056, guid: 15480e865b4f2aeca9091973156d7842, type: 3}
+    - time: 0.21666667
+      value: {fileID: -2751705753285338651, guid: 15480e865b4f2aeca9091973156d7842, type: 3}
     - time: 0.33333334
-      value: {fileID: 4457663794195168306, guid: 9319408bef8536447aa9db6239b623ea, type: 3}
+      value: {fileID: 698045928217798732, guid: 15480e865b4f2aeca9091973156d7842, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,11 +46,10 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -7612900313820856468, guid: 9319408bef8536447aa9db6239b623ea, type: 3}
-    - {fileID: 8733631668352107246, guid: 9319408bef8536447aa9db6239b623ea, type: 3}
-    - {fileID: -4947864620551752270, guid: 9319408bef8536447aa9db6239b623ea, type: 3}
-    - {fileID: -5364657433725072944, guid: 9319408bef8536447aa9db6239b623ea, type: 3}
-    - {fileID: 4457663794195168306, guid: 9319408bef8536447aa9db6239b623ea, type: 3}
+    - {fileID: -1047649535969266603, guid: 15480e865b4f2aeca9091973156d7842, type: 3}
+    - {fileID: -4242890834327137056, guid: 15480e865b4f2aeca9091973156d7842, type: 3}
+    - {fileID: -2751705753285338651, guid: 15480e865b4f2aeca9091973156d7842, type: 3}
+    - {fileID: 698045928217798732, guid: 15480e865b4f2aeca9091973156d7842, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -77,11 +74,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.33333334
-    functionName: destroyMe
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

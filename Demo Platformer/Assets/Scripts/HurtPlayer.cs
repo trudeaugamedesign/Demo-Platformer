@@ -8,8 +8,11 @@ public class HurtPlayer : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        Vector2 colliderDirection = col.GetContact(0).normal;
+        Vector2 collisionPoint = col.GetContact(0).point;
+
         // Detect if enemy collided with the player
-        if (col.gameObject.tag == "Player" && col.gameObject.transform.position.y <= transform.position.y)
+        if (col.gameObject.tag == "Player" && collisionPoint.y < transform.position.y)
         {
             GameManager.playerHit = true;
             Destroy(col.gameObject);

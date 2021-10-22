@@ -17,10 +17,13 @@ public class KillEnemy : MonoBehaviour
     {
         if (col.gameObject.tag == "Enemy" && transform.position.y > col.gameObject.transform.position.y)
         {
-            Destroy(col.gameObject);
+            // Instead of just straight up destroying the object, it's destroyed by their animation
+            // Destroy(col.gameObject);
+            col.gameObject.GetComponent<Animator>().SetTrigger("Has Died");
+
+            // Allow player to double jump upon landing on enemy
             rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
             rb2d.AddForce(new Vector2(0, jumpBoost), ForceMode2D.Impulse);
-
             gameObject.GetComponent<PlayerMovement>().hasDoubleJumped = false;
         }
     }

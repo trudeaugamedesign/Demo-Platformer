@@ -8,7 +8,7 @@ public class MushroomEnemy : MonoBehaviour
     public float distanceBeforeTurning; 
     public LayerMask wall;
 
-    public int direction;
+    public int direction;            
     private Rigidbody2D rb2d;
     private Animator anim;
     private SpriteRenderer sr;
@@ -59,5 +59,12 @@ public class MushroomEnemy : MonoBehaviour
         {
             sr.flipX = false;
         }
+    }
+
+    // This is used by animation keyframe
+    private void destroyMe()
+    {
+        rb2d.velocity = new Vector2(0.0f, 0.0f);
+        Destroy(this.gameObject);
     }
 }
