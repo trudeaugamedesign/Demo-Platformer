@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     public float wallJumpTime;
     public bool wallJumped;
     public bool movementLocked;
-    public float velocityToFall; // The y velocity in which to play fall animation
+    public float velocityToFall; // The y velocity in which to play fall animation 
+    public float deathJump;
     public LayerMask groundMask;
 
     [HideInInspector] public bool isGrounded;
@@ -215,6 +216,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy") GameManager.instance.ReloadScene();
+        if (other.tag == "Enemy")
+        {
+            movementLocked = true;
+            playerRb.AddForce(new Vector2(0, deathJump), ForceMode2D.Impulse);
+            anim.SetTrigger("Died");
+            GameManager.instance.ReloadScene();
+        }
     }
 }

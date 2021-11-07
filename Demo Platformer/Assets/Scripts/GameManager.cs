@@ -18,8 +18,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         if (instance != null) Destroy(gameObject);
-
-        instance = this;
+        else instance = this;
     }
 
     // Start is called before the first frame update
@@ -28,13 +27,19 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); // Set object to do not destroy on load
     }
 
+    private void Update()
+    {
 
+    }
     public void ReloadScene()
     {
-        LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("Reloading Scene");
+        StartCoroutine(LoadScene(SceneManager.GetActiveScene().name));
     }
     public IEnumerator LoadScene(string sceneName)
     {
+        Debug.Log("Loading scene " + sceneName);
+
         Scene lastScene = SceneManager.GetActiveScene(); // Record last scene
 
         // Avoid loading scene multiple times
@@ -57,5 +62,6 @@ public class GameManager : MonoBehaviour
             GameObject.FindGameObjectWithTag("Player").transform.position = spawnPosition;
         }
         else spawnPosition = Vector2.zero;
+
     }
 }

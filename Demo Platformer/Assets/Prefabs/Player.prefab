@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 663836532577500949}
   - component: {fileID: 663836532577500948}
   - component: {fileID: 4614836712239995492}
+  - component: {fileID: 1036434739}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +121,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.001335144, y: -0.22722912}
+  m_Offset: {x: 0.031707764, y: -0.22722912}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +132,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.066452, y: 1.427866}
+  m_Size: {x: 1.0577621, y: 1.427866}
   m_EdgeRadius: 0
 --- !u!114 &663836532577500948
 MonoBehaviour:
@@ -145,15 +146,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e01666f3b39fb439c228c5b143ca3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 7
+  movementSpeed: 8.5
   jumpSpeed: 16
   wallJumpSpeed: {x: 5, y: 15}
   wallSlideSpeed: -1
   wallDetectDistance: 0.2
-  wallJumpTime: 0.1
+  wallJumpTime: 0.2
   wallJumped: 0
   movementLocked: 0
   velocityToFall: -0.4
+  deathJump: 30
   groundMask:
     serializedVersion: 2
     m_Bits: 128
@@ -180,3 +182,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1036434739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663836532577500937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f28b75a1cc7d699a65c01f999a3bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpBoost: 12
