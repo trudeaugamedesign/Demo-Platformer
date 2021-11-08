@@ -4,62 +4,65 @@ using UnityEngine;
 
 public class RinoEnemy : MonoBehaviour
 {
-    public float initialSpeed;
+    public float speed;
+    public float direction;
     public float acceleration;
-    public float maxSpeed;
-    public int direction;
+    public float distanceBeforeTurning = 1.0f;
     public LayerMask wall;
-    public Vector2 knockbackForce;
 
-    private Rigidbody2D rb2d;
     private SpriteRenderer sr;
+    private Rigidbody2D rb2d;
     private Animator anim;
+    private float accelerationCount;
+    private int shouldMove = 1;
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
 
-        rb2d.velocity = new Vector2(initialSpeed, rb2d.velocity.y);
+        accelerationCount = acceleration;
     }
 
     void FixedUpdate()
     {
-        // Rino accelerates instead of just increasing velocity
-        float acceleratedMovement = initialSpeed * acceleration * rb2d.velocity.x;
-        rb2d.velocity = new Vector2(Mathf.Clamp(acceleratedMovement, -maxSpeed, maxSpeed), rb2d.velocity.y);
+        accelerationCount += acceleration;
 
-        // Check if rigidbody hit a wall
-        Vector2 raycastPos = new Vector2(transform.position.x, transform.position.y - 1);
-        RaycastHit2D hitRight = Physics2D.Raycast(raycastPos, Vector2.right, 1.7f, wall);
-        RaycastHit2D hitLeft = Physics2D.Raycast(raycastPos, Vector2.left, 1.7f, wall);
-
-        if (hitRight && direction == 1)
+        // Move forwards
+        rb2d.AddForce(new Vector2(speed * direction * accelerationCount * shouldMove, 0), ForceMode2D.Impulse);
+        
+        // Check if hit the wall (depending on direction)
+        RaycastHit2D hit = new RaycastHit2D();
+        Vector2 raycastTransform = new Vector2(rb2d.position.x, rb2d.position.y - 1);
+        if (direction == 1)
         {
-            StartCoroutine("restingPeriod", -1);
-            Debug.Log("right");
+            hit = Physics2D.Raycast(raycastTransform, Vector2.right, distanceBeforeTurning, wall);
+            accelerationCount = 1;
         }
-        if (hitLeft && direction == -1)
+        else if (direction == -1)
         {
-            StartCoroutine("restingPeriod", 1);
-            Debug.Log("left");
-        }
-
-        // Face the right direction
-        if (rb2d.velocity.x > 0.0f)
-        {
-            sr.flipX = true;
-        }
-        else if (rb2d.velocity.x < 0.0f)
-        {
-            sr.flipX = false;
+            hit = Physics2D.Raycast(raycastTransform, Vector2.left, distanceBeforeTurning, wall);
+            accelerationCount = 1;
         }
 
-        // Rino Animation
-        if (rb2d.velocity.x != 0.0f)
+        // If hit wall, turn around
+        if (hit.collider != null)
+        {
+            StartCoroutine("knockedBack");  
+            direction = -direction;
+        }
+
+        // Turn the right direction (and with animation)
+        if (rb2d.velocity.x < 0.0f)
         {
             anim.SetBool("Is Running", true);
+            sr.flipX = false;
+        }
+        else if (rb2d.velocity.x > 0.0f)
+        {
+            anim.SetBool("Is Running", true);
+            sr.flipX = true;
         }
         else 
         {
@@ -67,25 +70,16 @@ public class RinoEnemy : MonoBehaviour
         }
     }
 
-    private void knockBack(int direction)
+    IEnumerator knockedBack()
     {
-        rb2d.AddForce(new Vector2(knockbackForce.x * direction, knockbackForce.y), ForceMode2D.Impulse);
+        shouldMove = 0;
+        rb2d.AddForce(new Vector2(5.0f * -direction, 4.0f), ForceMode2D.Impulse);
+        yield return new WaitForSeconds(1.5f);
+        shouldMove = 1;
     }
 
-    // This is used by animation keyframe
-    private void destroyMe()
+    void destroyMe()
     {
-        rb2d.velocity = new Vector2(0.0f, 0.0f);
         Destroy(this.gameObject);
-    }
-
-    IEnumerator restingPeriod(int direction)
-    {
-        anim.SetTrigger("Has Crashed");
-        knockBack(direction);
-        this.direction = -this.direction;
-
-        yield return new WaitForSeconds(1);
-        rb2d.velocity = new Vector2(initialSpeed * direction, rb2d.velocity.y);
     }
 }

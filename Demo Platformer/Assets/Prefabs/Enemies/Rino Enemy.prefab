@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1782462902949743264}
   - component: {fileID: 1782462902949743266}
   - component: {fileID: 1782462902949743277}
-  - component: {fileID: 1782462902949743276}
   m_Layer: 0
   m_Name: Rino Enemy
   m_TagString: Enemy
@@ -165,23 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ed840eb17405a3c95e149c5cbdbbd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSpeed: 1
-  acceleration: 1.1
-  maxSpeed: 20
+  speed: 0.1
   direction: 1
+  acceleration: 1.2
+  distanceBeforeTurning: 2
   wall:
     serializedVersion: 2
     m_Bits: 128
-  knockbackForce: {x: 18, y: 4}
---- !u!114 &1782462902949743276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782462902949743271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41eb8497d4dd93c5aa7bc794aa0d283d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
