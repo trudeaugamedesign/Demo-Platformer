@@ -7,8 +7,11 @@ public class MushroomEnemy : MonoBehaviour
     public float speed;
     public float distanceBeforeTurning; 
     public LayerMask wall;
+    public GameObject objectToTriggerMovement;
 
     public int direction;            
+
+    private bool shouldMove = false;
     private Rigidbody2D rb2d;
     private Animator anim;
     private SpriteRenderer sr;
@@ -21,10 +24,25 @@ public class MushroomEnemy : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
+    void OnTriggerEnter2D(Collider2D collider2D)
+    {
+        if (collider2D.gameObject == objectToTriggerMovement)
+        {
+            shouldMove = true;
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb2d.velocity = new Vector2(speed * direction, rb2d.velocity.y);
+        if (shouldMove)
+        {
+            rb2d.velocity = new Vector2(speed * direction, rb2d.velocity.y);
+        }
+        else 
+        {
+            rb2d.velocity = new Vector2(0.0f, rb2d.velocity.y);
+        }
 
         // Check if rigidbody hit a wall
         Vector2 raycastPos = new Vector2(transform.position.x, transform.position.y - 1);
