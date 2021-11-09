@@ -170,5 +170,5 @@ MonoBehaviour:
   distanceBeforeTurning: 2
   wall:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   objectToTriggerMovement: {fileID: 0}
