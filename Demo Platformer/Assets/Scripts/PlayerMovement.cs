@@ -177,13 +177,13 @@ public class PlayerMovement : MonoBehaviour
     }
     IEnumerator WallJumpTime(int dir)
     {
-        wallJumped = true;
-        movementLocked = true;
-        canHoldWall = false;
-        playerRb.velocity = new Vector2(-dir * wallJumpSpeed.x, playerRb.velocity.y);
+        //wallJumped = true;
+        //movementLocked = true;
+        //canHoldWall = false;
+        //playerRb.velocity = new Vector2(-dir * wallJumpSpeed.x, playerRb.velocity.y);
         yield return new WaitForSeconds(wallJumpTime);
-        movementLocked = false;
-        canHoldWall = true;
+        //movementLocked = false;
+        //canHoldWall = true;
     }
     void Jumping()
     {
