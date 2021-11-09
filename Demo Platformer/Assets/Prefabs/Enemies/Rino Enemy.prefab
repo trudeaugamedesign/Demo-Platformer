@@ -164,10 +164,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ed840eb17405a3c95e149c5cbdbbd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
-  direction: 1
+  speed: 0.2
+  direction: -1
   acceleration: 1.2
   distanceBeforeTurning: 2
   wall:
     serializedVersion: 2
     m_Bits: 128
+  objectToTriggerMovement: {fileID: 0}

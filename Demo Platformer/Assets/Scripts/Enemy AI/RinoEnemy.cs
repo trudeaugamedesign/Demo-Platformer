@@ -9,12 +9,21 @@ public class RinoEnemy : MonoBehaviour
     public float acceleration;
     public float distanceBeforeTurning = 1.0f;
     public LayerMask wall;
+    public GameObject objectToTriggerMovement;
 
     private SpriteRenderer sr;
     private Rigidbody2D rb2d;
     private Animator anim;
     private float accelerationCount;
     private int shouldMove = 1;
+
+    void OnTriggerEnter2D(Collider2D collider2D)
+    {
+        if (collider2D.gameObject == objectToTriggerMovement)
+        {
+            shouldMove = 1;
+        }
+    }
 
     void Start()
     {
@@ -23,6 +32,8 @@ public class RinoEnemy : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         accelerationCount = acceleration;
+
+        shouldMove = 0;
     }
 
     void FixedUpdate()
