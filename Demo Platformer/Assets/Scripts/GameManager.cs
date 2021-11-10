@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
     [Header("Level Management")]
     private Vector2 spawnPosition;
 
+    [Header("Pausing")]
+    private bool paused = false;
+    public GameObject pauseMenu;
+
     void Awake()
     {
         if (instance != null) Destroy(gameObject);
@@ -29,12 +33,24 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        Time.timeScale = paused ? 0 : 1;
+        pauseMenu.SetActive(paused);
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            paused = !paused;
+        }
     }
     public void ReloadScene()
     {
         Debug.Log("Reloading Scene");
         StartCoroutine(LoadScene(SceneManager.GetActiveScene().name));
+    }
+    public void ReturnToMainMenu()
+    {
+        print("bruh");
+        paused = false;
+        StartCoroutine(LoadScene("Title Screen"));
     }
     public IEnumerator LoadScene(string sceneName)
     {
@@ -63,5 +79,11 @@ public class GameManager : MonoBehaviour
         }
         else spawnPosition = Vector2.zero;
 
+        paused = false;
+    }
+
+    public void TriggerPause()
+    {
+        paused = !paused;
     }
 }

@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool onWall;
     [HideInInspector] public bool hasDoubleJumped;
-    [HideInInspector] public bool canHoldWall = true;
     private bool inputJump;
 
     private Rigidbody2D playerRb;
@@ -177,13 +176,12 @@ public class PlayerMovement : MonoBehaviour
     }
     IEnumerator WallJumpTime(int dir)
     {
-        //wallJumped = true;
-        //movementLocked = true;
-        //canHoldWall = false;
-        //playerRb.velocity = new Vector2(-dir * wallJumpSpeed.x, playerRb.velocity.y);
+        wallJumped = true;
+        movementLocked = true;
+        playerRb.velocity = new Vector2(-dir * wallJumpSpeed.x, playerRb.velocity.y);
         yield return new WaitForSeconds(wallJumpTime);
-        //movementLocked = false;
-        //canHoldWall = true;
+        movementLocked = false;
+        wallJumped = false;
     }
     void Jumping()
     {
