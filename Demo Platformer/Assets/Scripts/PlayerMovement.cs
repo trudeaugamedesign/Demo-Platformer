@@ -216,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "Enemy" && other.transform.position.y + 1 >= transform.position.y)
         {
             movementLocked = true;
             playerRb.AddForce(new Vector2(0, deathJump), ForceMode2D.Impulse);
